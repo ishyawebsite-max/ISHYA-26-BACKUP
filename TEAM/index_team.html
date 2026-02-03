@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="../Logo Ishya.ico">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Texturina&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <!-- this is the script for header -->
+        <style>
+            /* --- CSS Variables --- */
+    
+            body{
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                font-family: 'Poppins', sans-serif;
+                color: var(--text-color);
+                line-height: 1.6;
+                /*overflow-x: hidden;*/
+            }
+            html {
+                scroll-snap-type: y mandatory;
+                scroll-behavior: smooth;
+                overflow-y: scroll;
+                height: 100%;
+            }
+    
+            header {
+                scroll-snap-align: start;
+            }
+
+            #rainCanvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 3; /* Puts the canvas BEHIND other content */
+                pointer-events: none; /* Allows clicking through the canvas */
+                background-color: black; /* The base black color */
+                display: block; /* Removes tiny scrollbars sometimes caused by canvas */
+            }
+    
+    
+            @keyframes gradientShift {
+    
+                0%,
+                100% {
+                    filter: brightness(1);
+                }
+    
+                50% {
+                    filter: brightness(1.1);
+                }
+            }
+    
+            /* --- Floating Elements --- */
+            .floating-element {
+                position: fixed;
+                border-radius: 50%;
+                opacity: 0.05;
+                pointer-events: none;
+                z-index: -1;
+            }
+    
+            .element-1 {
+                width: 300px;
+                height: 300px;
+                top: 10%;
+                left: 5%;
+                background: var(--primary-color);
+                animation: float 8s ease-in-out infinite;
+            }
+    
+            .element-2 {
+                width: 200px;
+                height: 200px;
+                bottom: 20%;
+                right: 10%;
+                background: var(--accent-purple);
+                animation: float 10s ease-in-out infinite 1s;
+            }
+    
+            .element-3 {
+                width: 250px;
+                height: 250px;
+                top: 50%;
+                right: 5%;
+                background: var(--secondary-color);
+                animation: float 12s ease-in-out infinite 2s;
+            }
+    
+            @keyframes float {
+    
+                0%,
+                100% {
+                    transform: translate(0, 0);
+                }
+    
+                50% {
+                    transform: translate(30px, 30px);
+                }
+            }
+
+            /* From Uiverse.io by Cobp */ 
+            .card-container {
+              width: 260px;
+              background: linear-gradient(
+                to top right,
+                #975af4,
+                #2f7cf8 40%,
+                #78aafa 65%,
+                #934cff 100%
+              );
+              padding: 4px;
+              border-radius: 32px;
+              display: flex;
+              flex-direction: column;
+            }
+            .card-container .title-card {
+              display: flex;
+              align-items: center;
+              padding: 0px 18px;
+              justify-content: center;
+              color: #fff;
+            }
+            .card-container .title-card p {
+              font-size: 14px;
+              font-weight: 600;
+              font-style: italic;
+              text-shadow: 2px 2px 6px #2975ee;
+              text-align: center;
+            }
+
+            .card-container .card-content {
+              width: 100%;
+              height: 100%;
+              background-color: #161a20;
+              border-radius: 30px;
+              color: #838383;
+              font-size: 12px;
+              padding: 18px;
+              display: flex;
+              flex-direction: column;
+              gap: 14px;
+            }
+            .card-container .card-content .title {
+              font-weight: 600;
+              color: #bab9b9;
+            }
+            .card-container .card-content .plain :nth-child(1) {
+              font-size: 36px;
+              color: #fff;
+            }
+            .card-container .card-content .card-btn {
+              background: linear-gradient(
+                4deg,
+                #975af4,
+                #2f7cf8 40%,
+                #78aafa 65%,
+                #934cff 100%
+              );
+              padding: 8px;
+              border: none;
+              width: 100%;
+              border-radius: 8px;
+              color: white;
+              font-size: 12px;
+              transition: all 0.3s ease-in-out;
+              cursor: pointer;
+              box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
+            }
+            .card-container .card-content .card-btn:hover {
+              color: #ffffff;
+              text-shadow: 0 0 8px #fff;
+              transform: scale(1.03);
+            }
+            .card-container .card-content .card-btn:active {
+              transform: scale(1);
+            }
+
+    
+            /* --- Main Container --- */
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px 60px;
+                position: relative;
+                z-index: 5;
+                overflow: visible;
+            }
+    
+            /* --- Section Titles --- */
+            .section-title {
+                text-align: center;
+                margin-bottom: 50px;
+                position: relative;                
+            }
+    
+            .section-title h2 {
+                font-family: 'Michroma';
+                font-size: 3rem;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-bottom: 15px;
+                position: relative;
+                display: inline-block;
+            }
+    
+            .section-title .line {
+                width: 100px;
+                height: 3px;
+                background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+                margin: 0 auto;
+                border-radius: 2px;
+                animation: expandWidth 0.8s ease-out;
+            }
+    
+            @keyframes expandWidth {
+                from {
+                    width: 0;
+                }
+    
+                to {
+                    width: 100px;
+                }
+            }
+    
+            /* --- Team Grid --- */
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+                margin-bottom: 80px;
+                justify-items: center;
+            }
+    
+            /* --- Team Card --- */
+            .team-card {
+                position: relative;
+                background: var(--card-bg);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(216, 212, 207, 0.2);
+                border-radius: 20px;
+                padding: 20px;
+                padding-top: 40px;
+                text-align: center;
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+                overflow: hidden;
+                cursor: pointer;
+                animation: fadeInUp 0.6s ease-out both;
+                max-width: 400px;
+                max-height: 400px;
+                min-height: 400px;
+                min-width: 400px;
+            }
+
+            .team-card img {
+                object-fit: cover;
+                size: contain;
+                position: center;
+                border-radius: 50%;
+                width: 70%;
+            }
+
+            .team-card:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+    
+            .team-card:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+    
+            .team-card:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+    
+            .team-card:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+    
+            .team-card:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+    
+            .team-card:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+    
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+    
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+    
+            .team-card::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), transparent);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+    
+            .team-card:hover::before {
+                opacity: 1;
+            }
+    
+            .team-card:hover {
+                /*background: rgba(159, 166, 176, 0.9);*/
+                border-color: rgba(64, 66, 67, 0.5);
+                transform: translateY(-20px);
+                box-shadow: 0px 0px 20px 1px #ffbb763f;
+                border: 1px solid rgba(255, 255, 255, 0.454);
+            }
+    
+            /* --- Team Member Avatar --- */
+            .member-avatar {
+                width: 170px;
+                height: 170px;
+                margin: 0 auto 20px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 50px;
+                box-shadow: 0 10px 30px rgba(212, 198, 133, 0.2);
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .team-card:hover .member-avatar {
+                transform: scale(1.1) rotate(5deg);
+                box-shadow: 0 15px 50px rgba(212, 198, 133, 0.4);
+            }
+    
+            .member-avatar::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(45deg,
+                        transparent 30%,
+                        rgba(255, 255, 255, 0.1) 50%,
+                        transparent 70%);
+                animation: shimmer 3s infinite;
+            }
+    
+            @keyframes shimmer {
+                0% {
+                    transform: translate(-100%, -100%);
+                }
+    
+                100% {
+                    transform: translate(100%, 100%);
+                }
+            }
+    
+            /* --- Member Info --- */
+            .member-name {
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: var(--text-tertiary);
+                margin-bottom: 8px;
+                transition: all 0.3s ease;
+            }
+    
+            .team-card:hover .member-name {
+                color: var(--text-color);
+                text-shadow: 0 0 10px rgba(212, 198, 133, 0.5);
+            }
+    
+            .member-role {
+                font-size: 0.95rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                margin-bottom: 15px;
+                font-weight: 500;
+            }
+    
+            .member-bio {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                margin-bottom: 20px;
+                line-height: 1.6;
+                opacity: 0.8;
+                transition: all 0.3s ease;
+            }
+    
+            .team-card:hover .member-bio {
+                opacity: 1;
+                color: var(--text-color);
+            }
+    
+            /* --- Social Links --- */
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 20px;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+            }
+    
+            .team-card:hover .social-links {
+                opacity: 1;
+                transform: translateY(0);
+            }
+    
+            .social-link {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(202, 201, 121, 0.1);
+                border: 1px solid var(--primary-color);
+                color: rgb(158, 197, 218);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+    
+            .social-link:hover {
+                background: var(--text-color);
+                color: black;
+                transform: scale(1.2) rotate(15deg);
+                box-shadow: 0 5px 20px rgba(189, 157, 15, 0.4);
+            }
+    
+            /* --- Department Section --- */
+            .department-section {
+                margin-bottom: 0px;
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+                scroll-margin-top: 0px;
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                padding: 50px;
+                height: 100vh;
+                box-sizing: border-box;
+            }
+            .leadership-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/leadership.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .finance-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../Images_BG/finance.png");
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .content-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://static.wixstatic.com/media/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .design-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/design.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }            
+            .anchoring-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/anchoring.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .socialmedia-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/socialmedia.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .hospitality-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/hospitality.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .informals-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/informals.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .judges-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/judges.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }            
+            .events-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://tse3.mm.bing.net/th/id/OIP.xR2aF0RsXzz3GQKDT6uKCQHaEN?rs=1&pid=ImgDetMain&o=7&rm=3');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .media-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/media.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+           .merchandise-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/merchandise.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .production-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/production.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }  
+            .proshow-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://static.wixstatic.com/media/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }  
+            .outreach-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../Images_BG/outreach.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }                                
+            .sponsorship-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://static.wixstatic.com/media/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .stalls-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://static.wixstatic.com/media/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0ad737_7b00ea9d76d34155bcae1a8b21a720bdf000.jpg');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }         
+            .technical-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('C:/Users/adity/Documents/GitHub/ISHYA 26/ISHYA-26/Images_BG/website.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .advisory-section.department-section{
+                background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('C:/Users/adity/Documents/GitHub/ISHYA 26/ISHYA-26/Images_BG/website.png');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .department-header {
+                text-align: center;
+                margin-bottom: 40px;
+                position: relative;
+                
+            }
+    
+            .department-header h3 {
+                font-family: 'Jim Nightshade';  
+                font-size: 3rem;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 10px;
+            }
+    
+            .department-header .line {
+                width: 80px;
+                height: 2px;
+                background: var(--secondary-color);
+                margin: 0 auto;
+            }
+    
+            /* --- Team Card --- */
+            .team-card {
+                background: linear-gradient(135deg, rgba(212, 198, 133, 0.1), rgba(139, 92, 246, 0.1));
+                border: 1px solid rgba(55, 54, 46, 0.3);
+                border-radius: 20px;
+                padding: 40px;
+                text-align: center;
+                margin-bottom: 40px;
+                backdrop-filter: blur(10px);
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .team-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(212, 198, 133, 0.1), transparent);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                pointer-events: none;
+            }
+    
+            .team-card:hover {
+                transform: translateY(-15px);
+                border-color: rgba(177, 155, 172, 0.6);
+                box-shadow: 0 20px 60px rgba(212, 198, 133, 0.15);
+            }
+    
+            .team-card:hover::before {
+                opacity: 1;
+            }
+    
+            .element-avatar {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 20px;
+                border-radius: 50%;
+                background: conic-gradient(from 0deg, var(--primary-color), var(--accent-purple), var(--secondary-color), var(--primary-color));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                font-size: 60px;
+                box-shadow: 0 15px 40px rgba(212, 198, 133, 0.25);
+                transition: all 0.4s ease;
+                position: relative;
+            }
+    
+            .team-card:hover .element-avatar {
+                transform: scale(1.15) rotateY(10deg);
+                box-shadow: 0 20px 60px rgba(212, 198, 133, 0.4);
+            }
+    
+            .element-name {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: var(--primary-color);
+                margin-bottom: 8px;
+            }
+    
+            .element-title {
+                font-size: 1.1rem;
+                color: var(--secondary-color);
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+    
+            .element-bio {
+                color: var(--text-muted);
+                line-height: 1.7;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+    
+            /* --- Stats Section --- */
+            .stats-section {
+                /* --- 1. The "Breakout" Trick (Forces Full Width) --- */
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                            url('https://tse4.mm.bing.net/th/id/OIP.qnkvB5wo7CBE4CFQ2bD_rgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3');
+                background-size: contain;
+                background-position: center;
+                background-attachment: fixed; /* This creates the cool "Parallax" scrolling effect */
+                
+                /*Flexbox Layout (Centers the cards) --- */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 50px;
+                
+                /*Borders --- */
+                padding: 50px 20px;
+                margin-bottom: 0px;
+                border-radius: 0;
+                height: 100vh;
+                box-sizing: border-box;
+
+                /*auto scroll*/
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+            }
+            /* Update this rule to ensure the title breaks to a new line */
+            .stats-section .section-title {
+                flex-basis: 100%; /* Forces the title to take full width */
+                text-align: center;
+                margin-bottom: 40px; /* Adds space between text and circles */
+            }
+    
+            .stat-card {
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+                margin: 0 auto;
+                background: var(--card-bg);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(212, 198, 133, 0.2);
+                padding: 30px;
+                max-width: 200px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                transition: all 0.4s ease;
+                cursor: pointer;
+            }
+    
+            .stat-card:hover {
+                border-color: rgba(212, 198, 133, 0.5);
+                box-shadow: 0 15px 40px rgba(212, 198, 133, 0.2);
+                transform: translateY(-10px);
+            }
+    
+            .stat-icon {
+                font-size: 3rem;
+                color: var(--primary-color);
+                margin-bottom: 15px;
+            }
+    
+            .stat-number {
+                font-family: 'Michroma';
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--text-color);
+                margin-bottom: 10px;
+            }
+    
+            .stat-label {
+                font-size: 1rem;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+            }
+    
+            /* --- Footer --- */
+            footer {
+                text-align: center;
+                padding: 40px 20px;
+                border-top: 1px solid rgba(212, 198, 133, 0.2);
+                background: rgba(26, 34, 56, 0.5);
+                backdrop-filter: blur(10px);
+                color: var(--text-muted);
+                position: relative;
+                z-index: 5;
+            }
+    
+            footer p {
+                margin: 0;
+                font-size: 0.95rem;
+            }
+    
+            footer .back-link {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 30px;
+                border: 1px solid var(--primary-color);
+                color: var(--primary-color);
+                text-decoration: none;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+    
+            footer .back-link:hover {
+                background: var(--primary-color);
+                color: var(--dark-bg);
+            }
+
+            .gold-text {
+                /* The Magic Gradient */
+                background-image: linear-gradient(
+                    to right, 
+                    #BF953F, 
+                    #FCF6BA, 
+                    #B38728, 
+                    #FBF5B7, 
+                    #AA771C
+                );
+                
+                /* Clip background to text */
+                -webkit-background-clip: text;
+                background-clip: text;
+                
+                /* Make text transparent so background shows */
+                color: transparent !important;
+                
+                /* Optional: Add a subtle glow */
+                text-shadow: 0px 0px 30px rgba(255, 215, 0, 0.2);
+            }
+
+            .aurora-text {
+                /* A 3-way gradient */
+                background-image: linear-gradient(
+                    45deg,
+                    #ff00cc 0%, 
+                    #333399 50%, 
+                    #00d4ff 100%
+                );
+                
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                
+                /* Slight blur to blend it */
+                filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+            }
+
+            .holo-text {
+                background-image: linear-gradient(
+                    135deg, 
+                    #E0E0E0 10%, 
+                    #FFFFFF 25%, 
+                    #A8A8A8 40%, 
+                    #6B6B6B 50%, 
+                    #A8A8A8 60%, 
+                    #FFFFFF 75%, 
+                    #E0E0E0 90%
+                );
+                
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent !important;
+                
+                /* Sharp metallic drop shadow */
+                filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.1));
+            }
+            .aurora-textnew {
+                background-image: linear-gradient(
+                    to right,
+                    #9fd0d6 0%,    
+                    #72d7d4 50%,   
+                    #a6d5af 100%   
+                );
+
+                /* Make the gradient repeat slightly for a metallic shine */
+                background-size: 200% auto;
+
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent !important;
+
+                /* A warm glow to separate it from the photo */
+                filter: drop-shadow(0 0 10px rgba(236, 162, 71, 0.5));
+
+                /* Optional: Animate the shine */
+                animation: shine 3s linear infinite;
+            }
+
+            /* Optional Animation Keyframes */
+            @keyframes shine {
+                to {
+                    background-position: 200% center;
+                }
+            }
+    
+            /* --- Responsive Design --- */
+            @media (max-width: 768px) {
+                header h1 {
+                    font-size: 2.5rem;
+                }
+    
+                .section-title h2 {
+                    font-size: 1.8rem;
+                }
+    
+                .team-grid {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+    
+                .team-card {
+                    padding: 25px;
+                }
+    
+                .member-avatar {
+                    width: 170px;
+                    height: 170px;
+                    font-size: 40px;
+                }
+    
+                .element-avatar {
+                    width: 210px;
+                    height: 210px;
+                    font-size: 50px;
+                }
+    
+                .stats-section {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+            }
+    
+            @media (max-width: 480px) {
+                header {
+                    padding: 25px 15px;
+                    margin-bottom: 40px;
+                }
+    
+                header h1 {
+                    font-size: 2rem;
+                }
+    
+                .section-title h2 {
+                    font-size: 1.5rem;
+                }
+    
+                .team-card {
+                    padding: 20px;
+                }
+    
+                .member-name {
+                    font-size: 1.2rem;
+                }
+    
+                .team-card {
+                    padding: 25px;
+                }
+            }
+
+            #scroll-down-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                background: var(--primary-color);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+
+            #scroll-down-btn:hover {
+                background: var(--secondary-color);
+                transform: scale(1.1);
+            }
+        </style>
+    </head>
+    
+    <body>
+        <canvas id="rainCanvas"></canvas>
+        <div id="app" class="container">
+            <!-- Floating Elements -->
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+    
+            <!-- Header -->
+              <!-- <header>-->
+                <!--<h1>TEAM ISHYA</h1>
+                <p class="subtitle">Bringing Culture to Life | Annual Fest 2026</p>-->
+            <!--</header>-->
+    
+            <!-- Main Content -->
+            <main>
+                <div class="container">
+                    <!-- Stats Section -->
+                   
+                    <div class="stats-section section-title">    
+                        <div class="section-title">
+                            <h2 class="aurora-textnew" style="font-family: 'Michroma'; size: 100px;">The ISHYA Family</h2>
+                            <div class="line"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"></div>
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Team Members</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"></div>
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Dedication</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"></div>
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Creativity</div>
+                        </div>
+                    </div>
+    
+                    <!-- Leadership Section -->
+                    <div class="leadership-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Leadership</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                                <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advisory Section -->
+                    <div class="advisory-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Advisory Committee</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decoration Section -->
+                    <div class="decoration-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Decoration Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Section -->
+                    <div class="design-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Design Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Events Section -->
+                    <div class="events-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Events Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality Section -->
+                    <div class="hospitality-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Hospitality Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informals Section -->
+                    <div class="informals-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>ISHYA Informals Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Judges Section -->
+                    <div class="judges-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Judges Management Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Section -->
+                    <div class="media-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Media Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merchandise Section -->
+                    <div class="merchandise-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Merchandise Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sponsorship Section -->
+                    <div class="sponsorship-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Sponsorship Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PR and Outreach Section -->
+                    <div class="outreach-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>PR and Outreach Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Section -->
+                    <div class="socialmedia-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Social Media Team</h2>                            
+                        </div>
+                        <br>
+                        
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Convenor - ISHYA 26</div>                                
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://i.ytimg.com/vi/Gl2aSNJqRe0/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ;color: var(--text-secondary)";>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Anchoring Section -->
+                    <div class="anchoring-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Content and Anchoring Team</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                        </div>
+                    </div>  
+
+                   <!-- Production Section -->
+                    <div class="production-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Production Team</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proshow and crowd management Section -->
+                    <div class="proshow-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Proshow and Crowd Management Team</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                        </div>
+                    </div>  
+
+                    <!-- Finance Section -->
+                    <div class="finance-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Finance</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+                       
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website Section -->
+                    <div class="technical-section department-section">
+                        <br><br>
+                        <div class="section-title">
+                            <h2>Website Team</h2>
+                            <div class="line"></div>
+                        </div>
+                        <br>
+
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                            <div class="team-card">
+                                <div class="element-avatar"><img src="https://static.wixstatic.com/media/2304ec_fc68e10cf0d849e29233b0170c44b874~mv2.jpg/v1/crop/x_0,y_0,w_3060,h_2894/fill/w_426,h_402,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20230731_104021.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="img_err"></div>
+                                <div class="element-name" style="font-family:'Michroma' ; color: var(--text-secondary)" ;>Dummy</div>
+                                <div class="element-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Co-Convenor - ISHYA 26</div>
+                               
+                            </div>
+                        </div>
+                    </div>  
+                    
+  
+                    
+
+                </div>
+            </main>
+        </div>
+        <div id="scroll-down-btn" onclick="scrollToNextSection()">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <script src="script.js"></script>
+        <script>
+
+            const canvas = document.getElementById('rainCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let canvasWidth = window.innerWidth;
+            let canvasHeight = window.innerHeight;
+
+            // Set canvas dimensions to match window size
+            function setCanvasSize() {
+                canvasWidth = window.innerWidth;
+                canvasHeight = window.innerHeight;
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+            }
+
+            setCanvasSize();
+            // Ensure canvas resizes if the user changes window size
+            window.addEventListener('resize', setCanvasSize);
+
+            // Configuration settings used to tune the look
+            const settings = {
+                particleCount: 150,   // How many lines are on screen at once
+                minSpeed: 2,          // Slowest falling speed
+                maxSpeed: 4,          // Fastest falling speed
+                minLength: 5,         // Shortest line length
+                maxLength: 20,        // Longest line length
+                color: 'rgba(255, 255, 255, 0.5)', // Semi-transparent white looks best
+                lineWidth: 1.5        // How thick the lines are
+            };
+
+            // Array to store our line particles
+            let particles = [];
+
+            // Class to define a single falling line
+            class Particle {
+                constructor() {
+                    this.reset();
+                    // Start Y at a random position on screen initially so they don't all start at top
+                    this.y = Math.random() * canvasHeight;
+                }
+            
+                reset() {
+                    // Reset to top of screen with random X, speed, and length
+                    this.x = Math.random() * canvasWidth;
+                    this.y = -Math.random() * 100; // Start slightly off-screen top
+                    this.speed = settings.minSpeed + Math.random() * (settings.maxSpeed - settings.minSpeed);
+                    this.length = settings.minLength + Math.random() * (settings.maxLength - settings.minLength);
+                    this.opacity = (Math.random() * 0.5) + 0.2; // Random opacity between 0.2 and 0.7
+                }
+            
+                update() {
+                    // Move down based on speed
+                    this.y += this.speed;
+                
+                    // If it goes past the bottom of the screen, reset it to the top
+                    if (this.y > canvasHeight + this.length) {
+                        this.reset();
+                    }
+                }
+            
+                draw() {
+                    ctx.beginPath();
+                    // Start point of line
+                    ctx.moveTo(this.x, this.y);
+                    // End point of line (y + length)
+                    ctx.lineTo(this.x, this.y + this.length);
+
+                    ctx.strokeStyle = `rgba(200, 200, 255, ${this.opacity})`; // Slight blue tint looks nice
+                    ctx.lineWidth = settings.lineWidth;
+                    // Round line caps make them look smoother
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+            }
+
+            // Initialize particles
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < settings.particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            // The animation loop function
+            function animate() {
+                // 1. Clear the entire canvas for the next frame
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            
+                // 2. Loop through every particle, update its position, and draw it
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+            
+                // 3. Request the next animation frame
+                requestAnimationFrame(animate);
+            }
+
+            // Start everything
+            initParticles();
+            animate();
+
+            // Smooth scroll behavior
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+    
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+    
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+    
+            // Observe all team cards
+            document.querySelectorAll('.team-card, .team-card, .stat-card').forEach(card => {
+                observer.observe(card);
+            });
+    
+            // Counter animation for stats
+            function animateCounter(element, target, duration = 2000) {
+                let current = 0;
+                const increment = target / (duration / 16);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        element.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 16);
+            }
+    
+            // Trigger counter animation on scroll
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const statsSection = document.querySelector('.stats-section');
+    
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.animated) {
+                        entry.target.animated = true;
+                        statNumbers.forEach(num => {
+                            const value = parseInt(num.textContent);
+                            if (!isNaN(value)) {
+                                animateCounter(num, value);
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+    
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            function scrollToNextSection() {
+                const sections = document.querySelectorAll('.stats-section, .department-section');
+                let currentIndex = -1;
+                const scrollY = window.scrollY;
+                for (let i = 0; i < sections.length; i++) {
+                    const rect = sections[i].getBoundingClientRect();
+                    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                if (currentIndex === -1) {
+                    // If no section is in view, find the closest
+                    for (let i = 0; i < sections.length; i++) {
+                        const rect = sections[i].getBoundingClientRect();
+                        if (rect.top > 0) {
+                            currentIndex = i - 1;
+                            break;
+                        }
+                    }
+                    if (currentIndex < 0) currentIndex = 0;
+                }
+                const nextIndex = (currentIndex + 1) % sections.length;
+                sections[nextIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        </script>
+        <script>
+            fetch('/ISHYA-26/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Create a temporary container
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = data;
+                    // Extract the script tag from the loaded HTML
+                    const script = tempDiv.querySelector('script');
+                    // Insert the HTML at the very top of the body (First Child)
+                    document.body.prepend(tempDiv);
+                    // Execute the extracted script manually
+                    if (script) {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = script.textContent;
+                        document.body.appendChild(newScript);
+                    }
+                })
+                .catch(err => console.error('Error loading header:', err));
+        </script>
+    </body>
+    
+</html>
